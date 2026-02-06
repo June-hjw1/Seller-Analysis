@@ -1,0 +1,37 @@
+version: '3.8'
+
+services:
+  postgres:
+    image: postgres:15-alpine
+    container_name: seller-analysis-db
+    environment:
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: password123
+      POSTGRES_DB: seller_growth
+    ports:
+      - "5432:5432"
+    volumes:
+      - ./sql/01_create_tables.sql:/docker-entrypoint-initdb.d/01.sql
+      - ./sql/02_insert_data.sql:/docker-entrypoint-initdb.d/02.sql
+      - ./data:/tmp/data
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U admin"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  pgadmin:
+    image: dpage/pgadmin4:latest
+    container_name: seller-analysis-pgadmin
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@seller.com
+      PGADMIN_DEFAULT_PASSWORD: admin123
+    ports:
+      - "8080:80"
+    depends_on:
+      postgres:
+        condition: service_healthy
+
+volumes:
+  postgres_data:
