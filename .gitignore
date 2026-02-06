@@ -1,26 +1,53 @@
+# 操作系统文件
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+
+# 编辑器文件
+.vscode/
+.idea/
+*.sublime-*
+
+# 日志文件
+*.log
+logs/
+
+# 数据文件（不跟踪大文件）
+*.db
+*.sqlite
+*.sqlite3
+*.dump
+
+# 环境变量
+.env
+.env.local
+
+# 临时文件
+tmp/
+temp/
+
+# 数据库备份
+*.bak
+*.backup
+
 # Python
 __pycache__/
 *.py[cod]
 *$py.class
+*.so
+.Python
+venv/
+env/
+pip-log.txt
+pip-delete-this-directory.txt
 
-# Data files
-*.db
-*.sqlite
-*.sqlite3
+# Jupyter Notebook
+.ipynb_checkpoints
 
-# IDE
-.vscode/
-.idea/
-*.swp
-
-# OS
-.DS_Store
-Thumbs.db
-
-# Logs
-*.log
-logs/
-
-# Docker
+# Docker相关
 docker-compose.override.yml
-.env
+
+# 系统特定
+*~
+\#*\#
