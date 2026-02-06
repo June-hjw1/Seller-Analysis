@@ -13,7 +13,7 @@ services:
       - "5432:5432"
     volumes:
       # 初始化脚本
-      - ./sql/00_setup_database.sql:/docker-entrypoint-initdb.d/00.sql
+      - ./sql/01_setup_database.sql:/docker-entrypoint-initdb.d/00.sql
       # 数据文件
       - ./data/kaggle_sample:/tmp/data
       # 数据持久化
