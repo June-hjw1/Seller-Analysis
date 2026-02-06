@@ -1,4 +1,3 @@
--- 第一部分：RFM基础分析
 WITH seller_rfm_base AS (
   SELECT 
     s.seller_id,
@@ -19,11 +18,9 @@ WITH seller_rfm_base AS (
   LEFT JOIN olist_orders o ON oi.order_id = o.order_id AND o.order_status = 'delivered'
   GROUP BY s.seller_id, s.seller_state
 ),
--- 第二部分：RFM打分
 rfm_scoring AS (
   SELECT 
     *,
-    -- 5分制打分
     CASE 
       WHEN frequency = 0 THEN 1  
       ELSE NTILE(5) OVER (ORDER BY recency_days DESC) 
@@ -41,7 +38,6 @@ rfm_scoring AS (
     
   FROM seller_rfm_base
 ),
--- 第三部分：计算总分和分层
 rfm_tiering AS (
   SELECT 
     seller_id,
@@ -66,7 +62,6 @@ rfm_tiering AS (
       ELSE '观察卖家'
     END as seller_tier,
     
-    -- 建议
     CASE 
       WHEN frequency = 0 THEN '需激活：引导完成首单'
       WHEN recency_score <= 2 AND frequency_score >= 4 THEN '重点维护：高复购但近期沉默'
@@ -77,7 +72,6 @@ rfm_tiering AS (
     
   FROM rfm_scoring
 )
--- 第四部分：输出
 SELECT 
   seller_id,
   seller_state,
@@ -91,7 +85,6 @@ SELECT
   rfm_total_score,
   seller_tier,
   operation_suggestion,
-  -- 优先级标记
   CASE 
     WHEN seller_tier = '待激活卖家' THEN '高优先级'
     WHEN seller_tier = '头部卖家' THEN '核心维护'
@@ -101,11 +94,11 @@ SELECT
   END as priority_level
   
 FROM rfm_tiering
-WHERE frequency > 0  -- 只展示有交易的卖家
+WHERE frequency > 0 
 ORDER BY monetary DESC, frequency DESC
 LIMIT 25;
 
--- 第五部分：分层统计汇总
+-- 分层统计汇总
 SELECT 
   seller_tier,
   COUNT(*) as seller_count,
