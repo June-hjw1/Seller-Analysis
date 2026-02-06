@@ -13,9 +13,9 @@ services:
       - "5432:5432"
     volumes:
       # 初始化脚本
-      - ./sql/01_setup_database.sql:/docker-entrypoint-initdb.d/00.sql
+      - ./sql/01_setup_database.sql:/docker-entrypoint-initdb.d/01_setup_database.sql
       # 数据文件
-      - ./data/kaggle_sample:/tmp/data
+      - ./data:/tmp/data
       # 数据持久化
       - postgres_data:/var/lib/postgresql/data
     healthcheck:
