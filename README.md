@@ -1,51 +1,60 @@
 # 电商卖家增长数据分析项目
 
 ## 项目概述
-本项目模拟电商平台的卖家入驻流程，通过SQL构建完整的转化漏斗分析模型，旨在识别增长瓶颈、优化运营策略。
+本项目基于Kaggle巴西电商公开数据集，模拟电商平台的卖家入驻流程，通过SQL进行卖家增长数据分析，展示了从数据导入、清洗、分析到业务洞察的完整流程，旨在识别增长瓶颈、优化运营策略。
 
-## 业务背景
-在平台型电商业务中，卖家增长是核心指标之一。从潜在卖家提交申请到最终成为活跃卖家，整个过程涉及多个环节，每个环节的转化率都直接影响业务增长。本分析旨在：
-- 量化各环节转化效率
-- 识别关键流失点
-- 提供数据驱动的优化建议
+## 项目亮点
+1. **真实业务场景**：基于Kaggle真实电商数据，分析3,000+卖家表现
+2. **SQL实现**：专注展示SQL数据分析能力，覆盖复杂查询、窗口函数、CTE等
+3. **完整项目流程**：从数据导入到业务建议的全链路分析
+4. **一键工程化**：提供Docker一键运行环境，展示项目部署能力
 
-## 分析指标
-| 指标 | 说明 | 计算公式 |
-|------|------|----------|
-| 线索总量 | 提交申请的卖家数量 | COUNT(*) |
-| 提交率 | 完成资料提交的比例 | 提交数/线索数 |
-| 审核率 | 通过初步审核的比例 | 审核通过数/提交数 |
-| 激活率 | 完成首单上架的比例 | 激活数/审核通过数 |
-| 整体转化率 | 从线索到激活的全流程转化率 | 激活数/线索数 |
+## 核心分析
+
+### 1. 卖家分层分析 (RFM模型)
+- 基于RFM模型的三个维度对卖家评分
+- 识别头部卖家、成长卖家、活跃卖家、观察卖家
+- 提供分层运营策略建议
+
+### 2. 成长轨迹分析
+- 卖家月度表现趋势分析
+- 新卖家留存率计算
+- 高成长卖家识别
+
+### 3. 业务洞察与策略
+- 地域分布与绩效关系
+- 卖家生命周期价值分析
+- 增长机会识别与优先级排序
+
+
+## 快速开始
+
+### 方案1：在线查看
+直接查看SQL分析脚本和结果说明：
+- [卖家分层分析](sql/01_seller_tiering.sql)
+- [成长轨迹分析](sql/02_growth_analysis.sql)
+- [业务洞察](sql/03_business_insights.sql)
+
+### 方案2：本地运行完整环境
+
+```bash
+# 1. 克隆项目
+git clone https://github.com/June-hjw1/Seller-Analysis.git
+cd seller-growth-analysis
+
+# 2. 执行权限
+chmod +x init-database.sh
+
+# 3. 一键启动（需要Docker环境）
+./init-database.sh
+```
+
 
 ## 技术栈
-- 数据库: PostgreSQL 14+
+- 数据库: PostgreSQL 15
 - 主要技术: 
   - SQL CTE (Common Table Expressions)
   - 窗口函数 (Window Functions: LAG, LEAD, ROW_NUMBER)
   - 条件逻辑 (CASE WHEN)
   - 高级聚合 (ROLLUP, STRING_AGG)
 - 可视化: 可通过Tableau连接分析结果
-
-## 文件结构
-/seller-growth-analysis
-├── README.md # 项目说明（本文件）
-├── sql/
-│ ├── 01_create_tables.sql # 建表语句
-│ ├── 02_insert_mock_data.sql # 模拟数据插入
-│ ├── 03_funnel_analysis.sql # 核心分析查询
-│ └── 04_advanced_metrics.sql # 进阶指标分析
-├── data/
-│ └── mock_data_sample.csv # 模拟数据样本
-├── docs/
-│ ├── analysis_report.md # 完整分析报告
-│ └── business_insights.pdf # 业务洞察总结
-└── notebooks/
-└── data_validation.ipynb # 数据质量检查（可选）
-
-├── README.md                 # 项目说明（本文件）
-├── ByteDance-Seller-Analysis/
-│   ├── seller_funnel_analysis.sql    # 完整SQL代码
-│   ├── data_sample.csv               # 模拟数据样本
-│   ├── analysis_report.md            # 分析报告
-│   └── insights_slides.pdf           # 总结PPT（可选）
