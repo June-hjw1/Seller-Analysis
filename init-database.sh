@@ -53,12 +53,12 @@ check_files() {
     print_info "检查项目文件..."
     
     # 检查数据文件
-    if [ ! -f "data/kaggle_sample/olist_sellers_sample.csv" ]; then
+    if [ ! -f "data/olist_sellers_dataset.csv" ]; then
         print_warning "卖家数据文件不存在"
         echo "请确保以下文件已放置："
-        echo "  data/kaggle_sample/olist_sellers_sample.csv"
-        echo "  data/kaggle_sample/olist_orders_sample.csv"
-        echo "  data/kaggle_sample/olist_order_items_sample.csv"
+        echo "  data/olist_sellers_dataset.csv"
+        echo "  data/olist_orders_dataset.csv"
+        echo "  data/olist_order_items_dataset.csv"
         echo ""
         read -p "按回车继续（如果文件不存在，分析可能无法正常运行）..."
     else
@@ -66,7 +66,7 @@ check_files() {
     fi
     
     # 检查SQL文件
-    if [ ! -f "sql/00_setup_database.sql" ]; then
+    if [ ! -f "sql/01_setup_database.sql" ]; then
         print_error "SQL初始化文件不存在"
         exit 1
     fi
@@ -150,10 +150,10 @@ show_access_info() {
     echo ""
     echo "3. 运行示例分析"
     echo "   卖家分层分析:"
-    echo "     docker exec ecommerce-analysis-db psql -U admin -d ecommerce_analysis -f /sql/01_seller_tiering.sql"
+    echo "     docker exec ecommerce-analysis-db psql -U admin -d ecommerce_analysis -f /sql/02_seller_tiering.sql"
     echo ""
     echo "   成长分析:"
-    echo "     docker exec ecommerce-analysis-db psql -U admin -d ecommerce_analysis -f /sql/02_growth_analysis.sql"
+    echo "     docker exec ecommerce-analysis-db psql -U admin -d ecommerce_analysis -f /sql/03_growth_analysis.sql"
     echo ""
     echo "管理命令："
     echo "   查看日志: docker-compose logs"
