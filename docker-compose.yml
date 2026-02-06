@@ -1,6 +1,7 @@
 version: '3.8'
 
 services:
+  # PostgreSQL数据库
   postgres:
     image: postgres:15-alpine
     container_name: ecommerce-analysis-db
@@ -11,39 +12,43 @@ services:
     ports:
       - "5432:5432"
     volumes:
-      - ./sql/01_data_import.sql:/docker-entrypoint-initdb.d/01.sql
-      - ./data/kaggle_sample:/tmp/data  
+      # 初始化脚本
+      - ./sql/00_setup_database.sql:/docker-entrypoint-initdb.d/00.sql
+      # 数据文件
+      - ./data/kaggle_sample:/tmp/data
+      # 数据持久化
       - postgres_data:/var/lib/postgresql/data
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U admin"]
       interval: 10s
       timeout: 5s
       retries: 5
+    restart: unless-stopped
 
+  # 数据库管理界面
   pgadmin:
     image: dpage/pgadmin4:latest
     container_name: ecommerce-analysis-pgadmin
     environment:
       PGADMIN_DEFAULT_EMAIL: admin@ecommerce.com
       PGADMIN_DEFAULT_PASSWORD: admin123
+      PGADMIN_CONFIG_SERVER_MODE: 'False'
+      PGADMIN_CONFIG_MASTER_PASSWORD_REQUIRED: 'False'
     ports:
       - "8080:80"
+    volumes:
+      - pgadmin_data:/var/lib/pgadmin
     depends_on:
       postgres:
         condition: service_healthy
-
-  jupyter:
-    image: jupyter/datascience-notebook:latest
-    container_name: ecommerce-analysis-jupyter
-    ports:
-      - "8888:8888"
-    volumes:
-      - ./notebooks:/home/jovyan/work
-      - ./data:/home/jovyan/data
-    environment:
-      - JUPYTER_TOKEN=datainsights2024
-    depends_on:
-      - postgres
+    restart: unless-stopped
 
 volumes:
   postgres_data:
+    driver: local
+  pgadmin_data:
+    driver: local
+
+networks:
+  default:
+    name: ecommerce-analysis-network
