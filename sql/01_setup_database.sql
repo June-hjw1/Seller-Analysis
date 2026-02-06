@@ -43,9 +43,9 @@ TRUNCATE TABLE olist_sellers;
 
 -- 6. 从CSV导入数据
 -- 注意：在Docker环境中，文件路径为 /tmp/data/
-COPY olist_sellers FROM '/tmp/data/olist_sellers_sample.csv' DELIMITER ',' CSV HEADER;
-COPY olist_orders FROM '/tmp/data/olist_orders_sample.csv' DELIMITER ',' CSV HEADER;
-COPY olist_order_items FROM '/tmp/data/olist_order_items_sample.csv' DELIMITER ',' CSV HEADER;
+COPY olist_sellers FROM '/tmp/data/olist_sellers_dataset.csv' DELIMITER ',' CSV HEADER;
+COPY olist_orders FROM '/tmp/data/olist_orders_dataset.csv' DELIMITER ',' CSV HEADER;
+COPY olist_order_items FROM '/tmp/data/olist_order_items_dataset.csv' DELIMITER ',' CSV HEADER;
 
 -- 7. 数据质量检查
 DO $$
