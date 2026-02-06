@@ -27,28 +27,13 @@
 - 增长机会识别与优先级排序
 
 
-## 快速开始
+## 在线查看
 
-### 方案1：在线查看
 直接查看SQL分析脚本和结果说明：
 - [卖家分层分析](sql/02_seller_tiering.sql)
 - [成长轨迹分析](sql/03_growth_analysis.sql)
 - [业务洞察](sql/04_business_insights.sql)
 - [业务分析报告](业务分析报告.md)
-
-### 方案2：本地运行完整环境
-
-```bash
-# 1. 克隆项目
-git clone https://github.com/June-hjw1/Seller-Analysis.git
-cd seller-growth-analysis
-
-# 2. 执行权限
-chmod +x init-database.sh
-
-# 3. 一键启动（需要Docker环境）
-./init-database.sh
-```
 
 
 ## 技术栈
