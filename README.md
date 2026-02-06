@@ -31,9 +31,10 @@
 
 ### 方案1：在线查看
 直接查看SQL分析脚本和结果说明：
-- [卖家分层分析](sql/01_seller_tiering.sql)
-- [成长轨迹分析](sql/02_growth_analysis.sql)
-- [业务洞察](sql/03_business_insights.sql)
+- [卖家分层分析](sql/02_seller_tiering.sql)
+- [成长轨迹分析](sql/03_growth_analysis.sql)
+- [业务洞察](sql/04_business_insights.sql)
+- [业务分析报告](业务分析报告.md)
 
 ### 方案2：本地运行完整环境
 
