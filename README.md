@@ -42,3 +42,10 @@
 │ └── business_insights.pdf # 业务洞察总结
 └── notebooks/
 └── data_validation.ipynb # 数据质量检查（可选）
+
+├── README.md                 # 项目说明（本文件）
+├── ByteDance-Seller-Analysis/
+│   ├── seller_funnel_analysis.sql    # 完整SQL代码
+│   ├── data_sample.csv               # 模拟数据样本
+│   ├── analysis_report.md            # 分析报告
+│   └── insights_slides.pdf           # 总结PPT（可选）
